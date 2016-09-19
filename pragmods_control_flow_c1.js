@@ -1,6 +1,6 @@
 
 // ---------------- 3. CONTROL FLOW ------------------
-// This .js file determines the flow of the variable elements in the experiment as dictated 
+// This .js file determines the flow of the variable elements in the experiment as dictated
 // by the various calls from pragmods html.
 
 /*
@@ -9,21 +9,20 @@ The first is base_image_pl, which stores the "underlying" or base images
 which will then be modified with props stored in the props_image_pl Array.
 
 NOTE: Unfortunately the number of variations for each type of object is hardoded.
-To make the code more usable it will be necessary to 
 */
 
 var base_image_pl = new Array();
 for (i=0; i<3; i++) {
     base_image_pl[i] = new Image();
-    base_image_pl[i].src = "images2/" + base + "-base" + String(i+1) + ".png";
+    base_image_pl[i].src = "images/" + base + "-base" + String(i+1) + ".png";
 }
 
 
 // By creating image object and setting source, the proloaded images become accesible. In this case they are stored as elements of the Array.
-var props_image_pl = new Array() 
+var props_image_pl = new Array()
 for (i=0;i<props.length;i++) {
     props_image_pl[i] = new Image();
-    props_image_pl[i].src = "images2/" + base + "-" + props[i] + ".png";
+    props_image_pl[i].src = "images/" + base + "-" + props[i] + ".png";
 }
 
 var number_to_name = new Array();
@@ -65,7 +64,7 @@ items_matrix_str = [lit, mit, rit];
 
 
 // Here you create an ordered list of filenames for the purpose of enabling
-// the grayscale_referent parameter to work. 
+// the grayscale_referent parameter to work.
 
 
 
@@ -118,7 +117,7 @@ var experiment = {
 	question_type_condition: question_type,
 
 	// These are the variables that will be modified as a function of how the user responds to the experiment.
-	// They are the ones necessary to do any science at all. 
+	// They are the ones necessary to do any science at all.
 	manip_check_target: -1,  // -1 is the default, which means that the subject did not enter any number because it was not asked to count (participant_feature_count == 1)
 	manip_check_dist: -1,
 	manip_check_foil: -1,
@@ -159,18 +158,15 @@ var experiment = {
 	middle_question_order: permutation_of_questions[1],
 	bottom_question_order: permutation_of_questions[2],
 
-	// image file used
-	image_version: file_number_to_use_for_referents,
-
 	// Colore salience condition
 	color_salience: grayscale_referent,
 
 	// When target_filler_sequence is not 0
 
-	hand_position: -1, 
+	hand_position: -1,
 
 	// FAMILIARIZATION DISPLAY FUNCTION
-	// This 
+	// This
 	next_familiarization: function() {
 	    // Allow experiment to start if it's a turk worker OR if it's a test run
 	    // Warning, it may not be security best practices... you know why
@@ -179,7 +175,7 @@ var experiment = {
 			// When there is a familiarization stage that sets up the priors.
 			if (familiarization_status == 1) {
 				// FAMILIARIZATION INSTRUCTIONS
-				var familiarization_html = '<p class="block-text"">Bob really likes to ' + 
+				var familiarization_html = '<p class="block-text"">Bob really likes to ' +
 				actions[0] + ' ' + plural + '. <br>' +
 				'Every ' + times[0] + ' he ' + actions[1] + ' a ' + base + '.<p>' +
 				'<p class="block-text">Click on each ' + times[1].toLowerCase() + ' to see the ' + base + ' Bob ' + actions[2] + '.</p>';
@@ -193,10 +189,10 @@ var experiment = {
 
 				for (i=0;i<=instances_in_familiarization-1;i++){
 					familiarization_objects_html += '<td width=200px height=230px align="center" ' +
-						'class="objTable"' + 
-						'id="famTable' + String(i) + 
+						'class="objTable"' +
+						'id="famTable' + String(i) +
 						'" onclick="experiment.reveal(' + String(i) + ')">';
-					familiarization_objects_html += '<br><br><br><br>' +times[1] + ' ' + String(i+1) + ', Bob ' + actions[2] 
+					familiarization_objects_html += '<br><br><br><br>' +times[1] + ' ' + String(i+1) + ', Bob ' + actions[2]
 						+ ':<div id="day' + String(i) + '"> </div>';
 					if ((i+1)%3 == 0) {
 						familiarization_objects_html += "</tr><tr>";
@@ -208,14 +204,14 @@ var experiment = {
 				experiment.target_frequency = 0;
 				experiment.familiarization_cond = -1;
 				// Instructions when there is no familiarization: Presenting Bob and explaning what that Bob does.
-				// The importance of this slide in this condition (familiarization_status == 0) is to reiffy 
+				// The importance of this slide in this condition (familiarization_status == 0) is to reiffy
 				// the social situation. In other words, make it clear that *someone* is asking you about the person.
-				var familiarization_html = '<p class="block-text"">Bob really likes to ' + 
-				actions[0] + ' ' + plural + '. <br>' + 
+				var familiarization_html = '<p class="block-text"">Bob really likes to ' +
+				actions[0] + ' ' + plural + '. <br>' +
 				'Every ' + times[0] + ' he ' + actions[1] + ' a ' + base + '.<p>';
 				$("#familiarizationText").html(familiarization_html);
 			}
-			showSlide("prestage");	
+			showSlide("prestage");
 		}
 	},
 
@@ -229,29 +225,29 @@ var experiment = {
 		$("#setup").html(setup_html);
 
 		// CREATE OBJECT TABLE
-		// The key thing here is that forced_choice_objects_html is something that will be *posted* on the HTML 
+		// The key thing here is that forced_choice_objects_html is something that will be *posted* on the HTML
 		// So if we make alternative objects depending on the value of *participant_response_type*
 		// (tr=table row; td= table data)
 		// When participant_response_type == 0
 		if (participant_response_type == 0) {
 			var forced_choice_objects_html = '<table align="center"><tr>';
-			// Q: Is this 3 a variable thing 
+			// Q: Is this 3 a variable thing
 			for (i=0;i<3;i++) {
-				forced_choice_objects_html += '<td width=198px height=210px align="center"' + 
+				forced_choice_objects_html += '<td width=198px height=210px align="center"' +
 				' class="notChoices objTable">';
-				forced_choice_objects_html += stimHTML(base,i,expt_perm[i],props,'obj', file_number_to_use_for_referents);
+				forced_choice_objects_html += stimHTML(base,i,expt_perm[i],props,'obj');
 				forced_choice_objects_html += '</td>';
 			}
 			forced_choice_objects_html += '</tr><tr>';
 			for (i = 0; i < 3; i++) {
-				forced_choice_objects_html += '<td width=198px height=20px align="center"' + 
+				forced_choice_objects_html += '<td width=198px height=20px align="center"' +
 				' class="notChoices objTable" ' +
 				'id=\"tdchoice' + String(i+3) + '\">';
 				forced_choice_objects_html += ' ' + number_to_name[i] + ' ';
 				forced_choice_objects_html += '</td>';
 			}
 			forced_choice_objects_html += '</tr><tr></tr></table><br><br>';
-			$("#objects").html(forced_choice_objects_html) 
+			$("#objects").html(forced_choice_objects_html)
 		}
 
 
@@ -260,15 +256,15 @@ var experiment = {
 		if (participant_response_type == 1) {
 			var betting_amounts_object_html = '<table align="center"><tr>';
 			for (i=0;i<3;i++) {
-				betting_amounts_object_html += '<td width=198px height=210px align="center"' + 
+				betting_amounts_object_html += '<td width=198px height=210px align="center"' +
 				' class="notChoices objTable" ' +
 				'id=\"tdchoice' + String(i) + '\">';
-				betting_amounts_object_html += stimHTML(base,i,expt_perm[i],props,'obj', file_number_to_use_for_referents);
+				betting_amounts_object_html += stimHTML(base,i,expt_perm[i],props,'obj');
 				betting_amounts_object_html += '</td>';
 			}
 			betting_amounts_object_html += '</tr><tr>';
 			for (i = 0; i < 3; i++) {
-				betting_amounts_object_html += '<td width=198px height=20px align="center"' + 
+				betting_amounts_object_html += '<td width=198px height=20px align="center"' +
 				' class="notChoices objTable" ' +
 				'id=\"tdchoice' + String(i+3) + '\">';
 				betting_amounts_object_html += ' ' + number_to_name[i] + ' ';
@@ -283,23 +279,23 @@ var experiment = {
 		if (participant_response_type == 2) {
 			var Likert_object_html = '<table align="center"><tr>';
 			for (i=0;i<3;i++) {
-				Likert_object_html += '<td width=198px height=210px align="center"' + 
+				Likert_object_html += '<td width=198px height=210px align="center"' +
 				' class="notChoices objTable" ' +
 				'id=\"tdchoice' + String(i) + '\">';
-				Likert_object_html += stimHTML(base,i,expt_perm[i],props,'obj', file_number_to_use_for_referents);
+				Likert_object_html += stimHTML(base,i,expt_perm[i],props,'obj');
 				Likert_object_html += '</td>';
 			}
 			Likert_object_html += '</tr><tr>';
 			for (i = 0; i < 3; i++) {
-				Likert_object_html += '<td width=198px height=30px align="center"' + 
+				Likert_object_html += '<td width=198px height=30px align="center"' +
 				' class="notChoices objTable" ' +
 				'id=\"tdchoice' + String(i+3) + '\">';
 				Likert_object_html += ' ' + number_to_name[i] + ' ';
 				Likert_object_html += '</td>';
 			}
 			Likert_object_html += '</tr></table><br><br>';
-			$("#objects").html(Likert_object_html) 
-		}		
+			$("#objects").html(Likert_object_html)
+		}
 
 
 		// CREATE MANIPULATION CHECK COMMON GROUNDING
@@ -308,22 +304,22 @@ var experiment = {
 		if (participant_feature_count == 1) {
 			var manipCheck_html = "";
 
-			checkTarget = '<p class="block-text">How many of the ' + plural + ' have ' + 
-				actual_target_prop + '?' + '  <input type="text" id="manipCheckTarget" ' + 
+			checkTarget = '<p class="block-text">How many of the ' + plural + ' have ' +
+				actual_target_prop + '?' + '  <input type="text" id="manipCheckTarget" ' +
 				'name="manipCheckTarget" size="1"></p>';
-			checkDistractor = '<p class="block-text">How many of the ' + plural + ' have ' + 
-				actual_distractor_prop + '?' + 
-				'  <input type="text" id="manipCheckDist" ' + 
+			checkDistractor = '<p class="block-text">How many of the ' + plural + ' have ' +
+				actual_distractor_prop + '?' +
+				'  <input type="text" id="manipCheckDist" ' +
 				'name="manipCheckDist" size="1"></p>';
 
 			// randomize the order... this previously just had the lines above randomly added to manipCheck_html. This is cleaner.
-			if (random(0,1) == 0) { 
+			if (random(0,1) == 0) {
 				manipCheck_html += checkTarget;
 				manipCheck_html += checkDistractor;
 			} else {
 				manipCheck_html += checkDistractor;
 				manipCheck_html += checkTarget;
-			} 
+			}
 			$("#manipCheck").html(manipCheck_html)
 		}
 
@@ -336,23 +332,23 @@ var experiment = {
 			var html_list = ["a", "a", "a"];
 			var manipCheck_html = "";
 
-			html_list[0] = '<p class="block-text">How many of the ' + plural + ' have ' + 
-				actual_target_prop + '?' + '  <input type="text" id="manipCheckTarget" ' + 
+			html_list[0] = '<p class="block-text">How many of the ' + plural + ' have ' +
+				actual_target_prop + '?' + '  <input type="text" id="manipCheckTarget" ' +
 				'name="manipCheckTarget" size="1"></p>';
 
-			html_list[1] = '<p class="block-text">How many of the ' + plural + ' have ' + 
-				actual_distractor_prop + '?' + 
-				'  <input type="text" id="manipCheckDist" ' + 
+			html_list[1] = '<p class="block-text">How many of the ' + plural + ' have ' +
+				actual_distractor_prop + '?' +
+				'  <input type="text" id="manipCheckDist" ' +
 				'name="manipCheckDist" size="1"></p>';
 
-			html_list[2] = '<p class="block-text">How many of the ' + plural + ' have ' + 
-				actual_foil_prop + '?' + 
-				'  <input type="text" id="manipCheckFoil" ' + 
+			html_list[2] = '<p class="block-text">How many of the ' + plural + ' have ' +
+				actual_foil_prop + '?' +
+				'  <input type="text" id="manipCheckFoil" ' +
 				'name="manipCheckFoil" size="1"></p>';
 
 			// randomize the order... this previously just had the lines above randomly added to manipCheck_html. This is cleaner.
-			
-			
+
+
 			manipCheck_html += html_list[experiment.top_question_order];
 			manipCheck_html += html_list[experiment.middle_question_order];
 			manipCheck_html += html_list[experiment.bottom_question_order];
@@ -395,20 +391,20 @@ var experiment = {
 
 			} else if (linguistic_framing == 9) {
 				var color_object_html = '<table align="center"><tr>';
-				// Q: Is this 3 a variable thing 
+				// Q: Is this 3 a variable thing
 				for (i=0;i<3;i++) {
-					color_object_html += '<td width=100px height=100px align="center"' + 
+					color_object_html += '<td width=100px height=100px align="center"' +
 					' class="notChoices objTable">';
-					color_object_html += colorPatchHTML(base,color_order_permuted[i],expt_perm[color_order_permuted[i]],props,'obj', file_number_to_use_for_referents, color_order_permuted);
+					color_object_html += colorPatchHTML(base,color_order_permuted[i],expt_perm[color_order_permuted[i]],props,'obj', color_order_permuted);
 					// Add the hand
-					if (color_order_permuted[i] == target_prop) { 
-						color_object_html += hand_HTML(base,color_order_permuted[i],expt_perm[color_order_permuted[i]],props,'obj', file_number_to_use_for_referents);
+					if (color_order_permuted[i] == target_prop) {
+						color_object_html += hand_HTML(base,color_order_permuted[i],expt_perm[color_order_permuted[i]],props,'obj');
 						experiment.hand_position = i;
 					}
 					color_object_html += '</td>';
 				}
 				color_object_html += '</tr></table><br><br>';
-				// $("#objects").html(color_object_html) 
+				// $("#objects").html(color_object_html)
 
 				label_html += 'Bob points to a patch of cloth the same color as ' + prop_words[target_prop] +  ':' ;
 				label_html += color_object_html
@@ -422,7 +418,7 @@ var experiment = {
 		    	label_html += '<p class="block-text style="font-size:x-large;">' + '"The ' + base + ' I most like to ' + actions[0] + ' has <b>mumblemumble."</b></p>' + '<p class="block-text style="font-size:small;">' + '(You couldn\'t hear what he said.)</p>';
 		    } else {
 				label_html += 'Bob says: '
-		    	label_html += '<p class="block-text style="font-size:x-large;">' + '"The ' + base + ' I will ' + actions[0] + ' next ' + times[0] +' has <b>mumblemumble."</b></p>' + '<p class="block-text style="font-size:small;">' + '(You couldn\'t hear what he said.)</p>';		    	
+		    	label_html += '<p class="block-text style="font-size:x-large;">' + '"The ' + base + ' I will ' + actions[0] + ' next ' + times[0] +' has <b>mumblemumble."</b></p>' + '<p class="block-text style="font-size:small;">' + '(You couldn\'t hear what he said.)</p>';
 		    }
 		} else if (question_type == 2) { // PURE BASE RATE CONDITION
 			label_html += 'Which ' + base + ' is Bob\'s favorite?</p>';
@@ -475,7 +471,7 @@ var experiment = {
 		}
 
 
-		$("#labelInst").html(label_html) 	
+		$("#labelInst").html(label_html)
 
 		// Here add the code that matters for the experiment. Note: the input fields about the pragmatic inference
 		// used to be just underneath the stimuli. This got changed to force the subjects to first read the instructions
@@ -484,7 +480,7 @@ var experiment = {
 		if (participant_response_type == 0) {
 			user_input_selection += '<table align="center"><tr>';
 			for (i=0;i<3;i++) {
-				user_input_selection += '<td width=98px height=50px align="center"' + 
+				user_input_selection += '<td width=98px height=50px align="center"' +
 					' class="unchosen objTable" ' +
 					'id="tdchoice' + String(i) + '" ' +
 					'onclick=\"experiment.select(' + String(i) + ')\">';
@@ -496,7 +492,7 @@ var experiment = {
 		} else if (participant_response_type == 1) {
 			user_input_selection += '<table align="center"><tr>';
 			for (i = 0; i < 3; i++) {
-				user_input_selection += '<td width=198px height=30px align="center"' + 
+				user_input_selection += '<td width=198px height=30px align="center"' +
 				' class="notChoices objTable" ' +
 				'id=\"tdchoice' + String(i+3) + '\">';
 				user_input_selection += '$<input type="text" id="betForOption' + String(i) + '" name="betForOption' + String(i) + '" size="4"> for ' + number_to_name[i];
@@ -506,7 +502,7 @@ var experiment = {
 		} else if (participant_response_type == 2) {
 			user_input_selection += '<br><table align="center"><tr>';
 			for (i = 0; i < 3; i++) {
-			user_input_selection += '<td width=198px height=30px align="center"' + 
+			user_input_selection += '<td width=198px height=30px align="center"' +
 				' class="notChoices objTable" ' +
 				'id=\"tdchoice' + String(i+3) + '\">';
 				user_input_selection += 'Level of confidence for ' + number_to_name[i];
@@ -514,7 +510,7 @@ var experiment = {
 			}
 			user_input_selection += '</tr><tr>';
 			for (i = 0; i < 3; i++) {
-				user_input_selection += '<td width=198px height=30px align="center"' + 
+				user_input_selection += '<td width=198px height=30px align="center"' +
 				' class="notChoices objTable" ' +
 				'id=\"tdchoice' + String(i+6) + '\">';
 				user_input_selection += '1 <input type="radio" id="likertFor' + String(i) + '_1' + '" name="likertFor' + String(i) + '" size="1" value = "1">';
@@ -556,7 +552,7 @@ var experiment = {
 		// REVEAL IMAGES IN FAMILIARIZATION
 	reveal: function(n) {
 			day_html = stimHTML(base,fam_dist[fam_perm[n]],fam_mat[n],props,'obj', file_number_to_use_for_referents)
-			$("#day" + String(n)).html(day_html) 
+			$("#day" + String(n)).html(day_html)
 			fam_clicked = unique(fam_clicked.concat(n))
 
 			if (fam_clicked.length == instances_in_familiarization) {
@@ -567,11 +563,11 @@ var experiment = {
 	// CHECK THAT FAMILIARIZARION IS DONE
 	check_fam: function() {
 		if (fam_finished == 1 || familiarization_status == 0) {
-		    famNextButton.blur(); 
+		    famNextButton.blur();
 		    experiment.next_test();
 		} else {
-		    $("#famMessage").html('<font color="red">' + 
-				       'Please make sure you have looked at all the '+ base +  '!' + 
+		    $("#famMessage").html('<font color="red">' +
+				       'Please make sure you have looked at all the '+ base +  '!' +
 				       '</font>');
 		}
     },
@@ -623,9 +619,9 @@ var experiment = {
     			}
     		}
     		var sumationOverBets = experiment.money_allocated_to_foil + experiment.money_allocated_to_target + experiment.money_allocated_to_logical;
-    		if (sumationOverBets == 100 &&  experiment.money_allocated_to_foil >= 0 
-    			&& experiment.money_allocated_to_target >= 0 && experiment.money_allocated_to_logical >= 0 
-    			&& experiment.money_allocated_to_foil <= 100 && experiment.money_allocated_to_target <= 100 
+    		if (sumationOverBets == 100 &&  experiment.money_allocated_to_foil >= 0
+    			&& experiment.money_allocated_to_target >= 0 && experiment.money_allocated_to_logical >= 0
+    			&& experiment.money_allocated_to_foil <= 100 && experiment.money_allocated_to_target <= 100
     			&& experiment.money_allocated_to_logical <= 100) {
     			betting_condition_fulfilled = 1;
     		}
@@ -667,20 +663,20 @@ var experiment = {
     	}
 
     	if (forced_choice_condition_fulfilled == 1 && betting_condition_fulfilled == 1 && likert_condition_fulfilled == 1 && count_condition_fulfilled == 1) {
-			testNextButton.blur(); 
+			testNextButton.blur();
 			showSlide("check");
 		} else {
-	    	$("#testMessage").html('<font color="red">' + 
-			'Please make sure you have answered all the questions!' + 
+	    	$("#testMessage").html('<font color="red">' +
+			'Please make sure you have answered all the questions!' +
 			'</font>');
 			if (betting_condition_fulfilled == 0){
-				$("#testMessage").html('<font color="red">' + 
-				'Please make sure that all your bets add to $100 and that you have given a value to each option' + 
+				$("#testMessage").html('<font color="red">' +
+				'Please make sure that all your bets add to $100 and that you have given a value to each option' +
 				'</font>');
 			}
 			if (likert_condition_fulfilled == 0) {
-				$("#testMessage").html('<font color="red">' + 
-				'Please make sure you have given an answer to each option!' + 
+				$("#testMessage").html('<font color="red">' +
+				'Please make sure you have given an answer to each option!' +
 				'</font>');
 			}
 		}
@@ -692,8 +688,8 @@ var experiment = {
     	personMet = getNameRadioValue(listOfNameRadios);
 		if (personMet == 0 ||
 		    document.getElementById('about').value.length < 1) {
-		    $("#checkMessage").html('<font color="red">' + 
-				       'Please make sure you have answered all the questions!' + 
+		    $("#checkMessage").html('<font color="red">' +
+				       'Please make sure you have answered all the questions!' +
 				       '</font>');
 		} else {
 		    if (personMet == 1) {
@@ -718,11 +714,11 @@ var experiment = {
 		}
     },
 
-    // END FUNCTION 
+    // END FUNCTION
     end: function () {
     	showSlide("finished");
     	setTimeout(function () {
 		turk.submit(experiment);
-        }, 500); 
+        }, 500);
     }
 }

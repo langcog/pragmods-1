@@ -26,7 +26,7 @@ function range(a,b) {
     for (var i=a; i<=b; i++) {
 	rangeArray.push(i);
     }
-    
+
     return rangeArray;
 }
 
@@ -35,10 +35,10 @@ function unique(arrayName)
 {
     var newArray=new Array();
     label:for(var i=0; i<arrayName.length;i++ )
-    {  
+    {
 	for(var j=0; j<newArray.length;j++ )
 	{
-	    if(newArray[j]==arrayName[i]) 
+	    if(newArray[j]==arrayName[i])
 		continue label;
 	}
 	newArray[newArray.length] = arrayName[i];
@@ -46,12 +46,12 @@ function unique(arrayName)
     return newArray;
 }
 
-// shuffle function    -- What the hell is the comna for???!!!??!?!?!?! om() * i), 
-function shuffle (a) 
-{ 
+// shuffle function
+function shuffle (a)
+{
     var o = [];
     for (var i=0; i < a.length; i++) { o[i] = a[i]; }
-    for (var j, x, i = o.length; i; j = parseInt(Math.random() * i), 
+    for (var j, x, i = o.length; i; j = parseInt(Math.random() * i),
 	 x = o[--i], o[i] = o[j], o[j] = x);
     return o;
 }
@@ -65,16 +65,16 @@ function showSlide(id) {
 
 // create HTML for property matrix and base image
 // base = the kind of stimuli
-function stimHTML(base, n, prop_mat, props, id, file_number) {
+function stimHTML(base, n, prop_mat, props, id) {
     var html = "";
 
-    html += '<img src="images' + file_number +  '/' + base + '-base' + String(n+1) +
+    html += '<img src="images/' + base + '-base' + String(n+1) +
     '.png" width=200px height=200px alt="' + base + '" id="' + id + 'Image"/>';
 
     var c = 0;
     for (var p = 0; p < prop_mat.length; p++) {
 	   if (prop_mat[p] == 1) {
-    	    html += '<img  src="images3/' + base + '-' + props[p] + 
+    	    html += '<img  src="images/' + base + '-' + props[p] +
     		'.png" width=200px height=200px alt="' + props[p] + '" ' +
     		'id="' + id + 'Property' + String(c+1) + '"/>';
     	    c = c + 1; // keep count of how many properties we've stacked
@@ -85,18 +85,16 @@ function stimHTML(base, n, prop_mat, props, id, file_number) {
 }
 
 
-// the patch of color by color? 
+// the patch of color by color?
 
 // Select color at first!
-// Patch of cloth referent matcher. file_number = the image folder 
+// Patch of cloth referent matcher. 
 // disposition: where in the experiment the image will be put on
-function colorPatchHTML(base, n, prop_mat, props, id, position, file_number, color_ordering) {
+function colorPatchHTML(base, n, prop_mat, props, id, position,  color_ordering) {
     var html = "";
-    //html += '<img src="images3/square' + '-'  + base + '-' + stims_single_words  +'.png" width=200px height=200px id="objImage" />';
-    html += '' //'<img src="images3/square-face-' + props[] +  '.png" width=200px height=200px id="objImage" />';
+    html += '' //'<img src="images/square-face-' + props[] +  '.png" width=200px height=200px id="objImage" />';
 
-
-    html += '<img src="images3/square-' + base + '-' + props[n] +  
+    html += '<img src="images/square-' + base + '-' + props[n] +
         '.png" width=80px height=80px id="objPatch" />';
 
     var c = 0;
@@ -108,7 +106,7 @@ function colorPatchHTML(base, n, prop_mat, props, id, position, file_number, col
 function hand_HTML(base, n, prop_mat, props, id, position) {
     var html = "";
 
-    html += '<img  src="images3/hand.png" width=50px height=50px'  + 
+    html += '<img  src="images/hand.png" width=50px height=50px'  +
      'alt="it is the hand!" id="objHandProperty"/>';
     //'alt="' + props[n] + '" ' + 'id="' + id + 'Property' + String(c+10) + '"/>';
     return html;
