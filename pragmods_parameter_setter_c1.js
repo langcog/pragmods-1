@@ -1,6 +1,6 @@
 // ---------------- 2. STIMULUS SETUP ------------------
-// Condition - call the maker getter to get the cond variable 
-// Parameters and Stimulus Setup 
+// Condition - call the maker getter to get the cond variable
+// Parameters and Stimulus Setup
 
 
 // Defining the state-space of relevant experiments for PHASE 0: Methodological questions.
@@ -31,7 +31,7 @@ var participant_feature_count = 1;
 //      9 -> (Odd one out) Non-linguistic: Bob points to a patch of cloth the same color as the hats. (odd one out is either 9 or 10)
 //      10 -> (Odd one out) Linguistic: Bob says "hat" (odd one out is either 9 or 10)
 //      11 -> tricky guy
-//      12 -> Pure randomness condition: You ask a concrete randomness question so that Liker, betting and forced choice can be mapped onto actual estimated probabilities  
+//      12 -> Pure randomness condition: You ask a concrete randomness question so that Liker, betting and forced choice can be mapped onto actual estimated probabilities
 //      13 -> "My friend has a hat" this is to establish baserates
 //      14 -> "The face has a hat" this is to remove the connotation that "friend" has
 //var to_choose_from = [1, 13];
@@ -48,10 +48,10 @@ var linguistic_framing = 1;
 //var question_type = 0;
 var question_type = 0;
 
-// Question sequence 
+// Question sequence
 //      0 -> Default: One target trial -> probably already done
 //      1 -> 6 trials with same inference question
-//      2 -> 6 trials, 3 inference, 3 where target is Logical target, unambiguous feature 
+//      2 -> 6 trials, 3 inference, 3 where target is Logical target, unambiguous feature
 //      3 -> Default: One distractor trial  -> probably not necesary
 //      4 -> 6 Target Trials
 //      5 -> 6 Trials in the order FTFTFT (T=”target trial” F=”filler trial”)
@@ -89,7 +89,7 @@ var stim_index = random(0,5);
 var scale_and_level = 1;
 
 // Elaborate on the purpose of this. Which image is being changed
-var img_size = 200; // needs to be implemented, currently just a placeholder   
+var img_size = 200; // needs to be implemented, currently just a placeholder
 
 // Prior familiarization condition
 //var cond = 1;
@@ -100,11 +100,11 @@ var cond = random(1,4);
 var file_number_to_use_for_referents = '3';
 
 
-// Select color salience. 
+// Select color salience.
 // For reference, in the scales level 1 condition, choice_names_unpermuted[0] is foil, [1] is logical, [2] is target.
 //      0 -> Standard: All of the elements are in color
 //      1 -> choice_names_unpermuted[1] and [2] are greyscale. [0] is colored.
-//      2 -> choice_names_unpermuted[2] and [0] are greyscale, [1] is colored. 
+//      2 -> choice_names_unpermuted[2] and [0] are greyscale, [1] is colored.
 //      3 -> choice_names_unpermuted[0] and [1] are grayscale, [2] is colored.
 var grayscale_referent = 0;
 
@@ -113,31 +113,7 @@ var grayscale_referent = 0;
 // question_order_permutations
 var permutation_of_questions =  shuffle(range(0,2));
 
-// 
-//var 
-// I'm still working on figuring out how exactly this part works,
-// but Michael explained that "var condCounts = "1,75;2,75;3,75;4,75""
-// is meant to cycle through four conditions (as of yet I don't get)
-// which conditions these are supposed to be. 
-// http://langcog.stanford.edu/cgi-bin/subject_equalizer/maker_getter.php?conds=1,75;2,75;3,75;4,75&filename=MCF_pragmods_v6
-/*
-try {
-    var filename = "MCF_pragmods_v6"
-    var condCounts = "1,75;2,75;3,75;4,75"
-    var xmlHttp = null;
-    xmlHttp = new XMLHttpRequest();
-    xmlHttp.open( "GET", "http://langcog.stanford.edu/cgi-bin/subject_equalizer/maker_getter.php?conds=" + 
-		  condCounts +"&filename=" + filename, false );
-    xmlHttp.send( null );
-    var cond = xmlHttp.responseText;
-} catch (e) {
-    var cond = 1;
-}
-
-*/
-
 // Fixing the logic of parameters to enforce sensible permutations
-
 if (linguistic_framing == 9 || linguistic_framing == 10) {
     scale_and_level = 8;
     participant_feature_count = 2;
@@ -147,18 +123,15 @@ if (linguistic_framing != 9 && linguistic_framing != 10) {
 }
 
 
-
-
-
 // CROSS CONDITIONS
-// familiarization conditions. 
+// familiarization conditions.
 //    0 -> Foil, it has neither feature
 //    1 -> Target, with the only feature that matters
 //    2 -> Logical/distractor, with the two features including the distractor
 var fam_dists = [[0, 1, 2, 2, 2, 2, 2, 2, 2],
         [0, 1, 1, 1, 2, 2, 2, 2, 2],
         [0, 1, 1, 1, 1, 1, 2, 2, 2],
-        [0, 1, 1, 1, 1, 1, 1, 1, 2]]; 
+        [0, 1, 1, 1, 1, 1, 1, 1, 2]];
 var target_frequencies = [0.11, 0.33, 0.556, 0.778]; // just counting the proportion of 1s in that matrix, for book keeping and and labeling
 // matrix size, usually 9
 var instances_in_familiarization = fam_dists[0].length
@@ -175,9 +148,9 @@ var fam_dist = fam_dists[fam_cond];
 
 // bookkeeping variables
 // All of these are used in the control flow (think about how to organize this)
-var choices = [0, 1, 2]; 
+var choices = [0, 1, 2];
 var target = -2; // possibly vestigial
-var fam_clicked = new Array();   
+var fam_clicked = new Array();
 var fam_finished; // familiarization finished, boolean vareable -- issues with conceptual grouping (think about it)
 var positions = ["left","middle","right"];
 
@@ -243,7 +216,7 @@ if (scale_and_level == 1) {
     var choice_names_unpermuted = ["foil","target","logical"];
 }
 
-// Level 0, scales+ - m1/r3     
+// Level 0, scales+ - m1/r3
 // Consider replacing "logical" for a second "foil", since neither alternative is strictly coherent
 if (scale_and_level == 2) {
     var level = 0;
@@ -314,7 +287,7 @@ if (scale_and_level == 7) {
 }
 
 
-// This is for the patch of colors series 
+// This is for the patch of colors series
 if (scale_and_level == 8) {
     var level = 3;
     var target_unpermuted = 2;
