@@ -1,7 +1,7 @@
 pragmods
 ========
 
-Code for pragmatics experiments on Mechanical Turk – used for Frank et al. (under review). "Rational speech act models of pragmatic reasoning in reference games."
+Code for pragmatics experiments on Mechanical Turk – used for Frank et al. (under review). "Rational speech act models of pragmatic reasoning in reference games." Results, models, and analyses are available here: [https://github.com/langcog/pragmods]().
 
 ## Specifics
 
